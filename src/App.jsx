@@ -1,8 +1,9 @@
 import "./App.css";
+import Login from "./page/login/Login";
 function App() {
   return (
     <>
-      <p>hello word</p>
+      <Login />
     </>
   );
 }
