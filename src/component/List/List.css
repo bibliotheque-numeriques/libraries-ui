@@ -1,0 +1,12 @@
+.list-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  height: 10vh;
+}
+.list-item p {
+  flex-basis: 20%;
+}
