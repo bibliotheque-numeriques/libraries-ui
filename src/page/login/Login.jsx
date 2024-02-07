@@ -1,11 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
 import logimage from "../../ressource/log.svg";
 import LockIcon from "@mui/icons-material/Lock";
-import KeyIcon from "@mui/icons-material/Key";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Facebook, Google, LinkedIn, Twitter } from "@mui/icons-material";
+import axios from "axios";
+import { useNavigate } from "react-router";
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post("http://localhost:8080/login", {
+        email,
+        password,
+      });
+
+      const { user } = response.data;
+      if (!user) {
+        throw new Error("L'email ou le mot de passe est incorrect");
+      }
+      const role = user.role;
+      if (role === "ADMIN") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la connexion :", error);
+    }
+  };
   return (
     <div className="login-container">
       <div className="panels-container">
@@ -18,20 +45,30 @@ function Login() {
       </div>
       <div className="form-container">
         <p>Sign in</p>
-        <form action="">
-          <div className="id-user">
-            <KeyIcon sx={{ fontSize: "2em", color: "#ACACAC" }} />
-            <input type="text" name="text" id="id-user" />
-          </div>
+        <form action="" onSubmit={handleSubmit}>
           <div className="email-user">
             <AccountCircleIcon sx={{ fontSize: "2em", color: "#ACACAC" }} />
-            <input type="email" name="email" id="email" />
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
           <div className="password-user">
             <LockIcon sx={{ fontSize: "2em", color: "#ACACAC" }} />
-            <input type="password" name="password" id="password" />
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
           </div>
-          <button type="button" id="Sign-in">
+          <button type="submit" id="Sign-in">
             Sign in
           </button>
         </form>
