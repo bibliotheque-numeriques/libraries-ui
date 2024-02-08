@@ -5,12 +5,11 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  /*background-color: #010101;*/
 }
 .panels-container {
   width: 50vw;
   height: 100vh;
-  background-color: #4481eb;
+  background-color: var(--primary-color);
   display: flex;
   flex-direction: column;
 
@@ -93,7 +92,7 @@
   font-size: 1.3em;
   font-weight: 500;
   color: white;
-  background-color: #4481eb;
+  background-color: var(--primary-color);
   border-radius: 4vw;
   outline: none;
   border: none;
