@@ -3,14 +3,6 @@
   height: 80%;
   overflow-y: scroll;
 }
-.head {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  height: 10vh;
-  padding: 1vh 2vw;
-}
 .head h3 {
   font-size: 1.5rem;
   color: var(--primary-color);

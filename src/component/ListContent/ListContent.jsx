@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./ListContent.css";
 import List from "../List/List";
 import axios from "axios";
-import { Add } from "@mui/icons-material";
 function ListContent() {
   const [list, setlists] = useState([]);
   useEffect(() => {
@@ -13,17 +12,6 @@ function ListContent() {
   }, []);
   return (
     <div className="Listcontent">
-      <div className="head">
-        <h3>Book List </h3>
-        <Add
-          sx={{
-            bgcolor: "#4481eb",
-            fontSize: "2rem",
-            padding: "5px",
-            borderRadius: "50%",
-          }}
-        />
-      </div>
       <div className="list-head">
         <p>Title</p>
         <p>Page</p>
