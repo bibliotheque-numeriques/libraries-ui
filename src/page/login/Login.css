@@ -66,7 +66,6 @@
   height: 40%;
 }
 
-.id-user,
 .email-user,
 .password-user {
   width: 100%;
@@ -78,7 +77,6 @@
   background-color: #f4f4f4;
   border-radius: 2rem;
 }
-.id-user input,
 .email-user input,
 .password-user input {
   border: 1px solid blue;
@@ -100,6 +98,20 @@
   outline: none;
   border: none;
   cursor: pointer;
+}
+#Sign-in:active {
+  scale: 0.9;
+}
+.error-login {
+  background: #ed4337;
+  opacity: 0.7;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px;
+  transition: ease-in-out 3s;
+  border-radius: 10px;
+  font-size: 0.8rem;
 }
 .social-icon {
   font-size: 2em !important;

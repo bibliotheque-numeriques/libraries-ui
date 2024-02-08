@@ -3,7 +3,13 @@ import "./Login.css";
 import logimage from "../../ressource/log.svg";
 import LockIcon from "@mui/icons-material/Lock";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Facebook, Google, LinkedIn, Twitter } from "@mui/icons-material";
+import {
+  Facebook,
+  Google,
+  GppMaybe,
+  LinkedIn,
+  Twitter,
+} from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router";
 function Login() {
@@ -72,6 +78,10 @@ function Login() {
             Sign in
           </button>
         </form>
+        <div className="error-login">
+          <GppMaybe />
+          <p>Password or email invalid</p>
+        </div>
         <span>Or Sign in with social platforms</span>
         <div className="social-link">
           <Facebook className="social-icon" />
