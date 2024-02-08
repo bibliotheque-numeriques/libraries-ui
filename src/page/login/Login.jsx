@@ -13,17 +13,26 @@ import {
 import axios from "axios";
 import { useNavigate } from "react-router";
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginInfo, setLoginInfo] = useState({
+    email: "",
+    password: "",
+  });
+  const [isError, setIsError] = useState(false);
+
+  const updateLoginInfo = (event) => {
+    const { name, value } = event.target;
+    setLoginInfo((prev) => ({ ...prev, [name]: value }));
+  };
+
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8080/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:8080/login",
+        loginInfo,
+      );
 
       const { user } = response.data;
       if (!user) {
@@ -37,6 +46,7 @@ function Login() {
       }
     } catch (error) {
       console.error("Erreur lors de la connexion :", error);
+      setIsError(true);
     }
   };
   return (
@@ -58,8 +68,8 @@ function Login() {
               type="email"
               name="email"
               id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={loginInfo.email}
+              onChange={updateLoginInfo}
               required
             />
           </div>
@@ -69,8 +79,8 @@ function Login() {
               type="password"
               name="password"
               id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={loginInfo.password}
+              onChange={updateLoginInfo}
               required
             />
           </div>
@@ -78,10 +88,12 @@ function Login() {
             Sign in
           </button>
         </form>
-        <div className="error-login">
-          <GppMaybe />
-          <p>Password or email invalid</p>
-        </div>
+        {isError && (
+          <div className="error-login">
+            <GppMaybe />
+            <p>Password or email invalid</p>
+          </div>
+        )}
         <span>Or Sign in with social platforms</span>
         <div className="social-link">
           <Facebook className="social-icon" />
