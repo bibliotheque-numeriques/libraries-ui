@@ -74,7 +74,7 @@
   align-items: center;
   padding-inline: 1vw;
   background-color: #f4f4f4;
-  border-radius: 2rem;
+  border-radius: 0.5rem;
 }
 .email-user input,
 .password-user input {
@@ -87,13 +87,13 @@
   background-color: transparent;
 }
 #Sign-in {
-  width: fit-content;
+  width: 25vw;
   padding: 1.5vh 3.5vw;
   font-size: 1.3em;
   font-weight: 500;
   color: white;
   background-color: var(--primary-color);
-  border-radius: 4vw;
+  border-radius: 0.5rem;
   outline: none;
   border: none;
   cursor: pointer;
@@ -112,9 +112,15 @@
   border-radius: 10px;
   font-size: 0.8rem;
 }
-.social-icon {
-  font-size: 2em !important;
-}
-.social-icon:hover {
-  color: #4481eb;
+.social-link {
+  width: 25vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 0.5rem;
+  background-color: var(--terty-color);
+  padding: 1.5vh 3.5vw;
+  gap: 4vw;
+  margin-top: -2vh;
+  cursor: pointer;
 }

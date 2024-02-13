@@ -22,22 +22,28 @@ function AddBook() {
     langage: "",
     description: "",
     parution_date: "",
+    link_image_book:
+      "https://fr.web.img5.acsta.net/pictures/23/05/04/12/49/2864731.jpg",
     id_category: "",
     id_author: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const newValue = name === "page" ? parseInt(value, 10) : value;
+
     setBookData((prevState) => ({
       ...prevState,
-      [name]: newValue,
+      [name]: value,
     }));
   };
 
   const handleAddBook = () => {
+    console.log(bookData.parution_date);
+
+    const formattedDate = new Date(bookData.parution_date).toISOString();
+    const updatedBookData = { ...bookData, parution_date: formattedDate };
     axios
-      .post("http://localhost:8080/book", bookData)
+      .post(`${process.env.REACT_APP_BASE_URL}/book`, updatedBookData)
       .then((response) => {
         // Traiter la réponse
         console.log("Book added successfully");
@@ -93,6 +99,7 @@ function AddBook() {
           >
             <Input
               variant="solid"
+              name="title"
               placeholder="Book Title"
               onChange={handleChange}
             />
@@ -114,6 +121,7 @@ function AddBook() {
               onChange={handleChange}
             />
             <Input
+              type="date"
               variant="solid"
               placeholder="parution date"
               onChange={handleChange}

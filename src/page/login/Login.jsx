@@ -30,8 +30,8 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/login",
-        loginInfo,
+        `${process.env.REACT_APP_BASE_URL}/login`,
+        loginInfo
       );
 
       const { user } = response.data;
@@ -94,12 +94,9 @@ function Login() {
             <p>Password or email invalid</p>
           </div>
         )}
-        <span>Or Sign in with social platforms</span>
         <div className="social-link">
-          <Facebook className="social-icon" />
-          <Twitter className="social-icon" />
           <Google className="social-icon" />
-          <LinkedIn className="social-icon" />
+          <p>login with Google</p>
         </div>
       </div>
     </div>

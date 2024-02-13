@@ -6,7 +6,7 @@ function ListContent() {
   const [list, setlists] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/book")
+      .get(`${process.env.REACT_APP_BASE_URL}/book`)
       .then((response) => setlists(response.data.booksWithAuthorsAndCategories))
       .catch((error) => console.error(error));
   }, []);
