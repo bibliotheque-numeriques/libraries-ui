@@ -1,16 +1,21 @@
 .menu {
   display: flex;
   flex-direction: column;
-  gap: 2.3rem;
-  height: 94vh;
+  height: 100vh;
+  width: 50vw;
+  background-color: var(--white);
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  padding-inline: 1vw;
 }
 .logo {
   text-align: center;
   padding: 20px;
-  color: #dde6ed;
+  color: var(--primary-color);
   align-items: center;
   display: flex;
   gap: 20px;
+  flex-basis: 12vh;
 }
 .logo .logo-icon {
   font-size: 1.6rem;
@@ -18,9 +23,10 @@
 .menu--list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  justify-content: space-around;
+  flex-basis: 88vh;
 }
-.menu--list .item {
+.item {
   display: flex;
   align-items: center;
   gap: 20px;
@@ -30,9 +36,9 @@
   padding: 10px;
   border-radius: 10px;
   transition: 0.3s ease-in-out;
-  color: #dde6ed;
+  color: var(--primary-color);
 }
-.menu--list .item:hover {
-  background-color: #dde6ed;
-  color: #27374d;
+.item:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
 }

@@ -1,14 +1,16 @@
 import {
   AutoStories,
+  Category,
+  Download,
   Help,
   Home,
-  Message,
-  QueryStats,
-  Report,
-  Task,
+  LibraryBooks,
+  Logout,
+  Settings,
 } from "@mui/icons-material";
 import React from "react";
 import "./Sidebar.css";
+import { Box } from "@mui/material";
 function Sidebar() {
   return (
     <div className="menu">
@@ -17,30 +19,45 @@ function Sidebar() {
         <h2>E-library</h2>
       </div>
       <div className="menu--list">
-        <a href="#" className="item">
-          <Home className="icon" />
-          Dashboard
-        </a>
-        <a href="#" className="item">
-          <Task className="icon" />
-          Assignment
-        </a>
-        <a href="#" className="item">
-          <Report className="icon" />
-          Report
-        </a>
-        <a href="#" className="item">
-          <QueryStats className="icon" />
-          Stats
-        </a>
-        <a href="#" className="item">
-          <Message className="icon" />
-          Message
-        </a>
-        <a href="#" className="item">
-          <Help className="icon" />
-          Help
-        </a>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "2vh" }}>
+          <a href="#" className="item">
+            <Home className="icon" />
+            Discover
+          </a>
+          <a href="#" className="item">
+            <Category className="icon" />
+            Catégory
+          </a>
+          <a href="#" className="item">
+            <Download className="icon" />
+            Download
+          </a>
+          <a href="#" className="item">
+            <LibraryBooks className="icon" />
+            All book
+          </a>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "2vh",
+            justifyContent: "flex-end",
+          }}
+        >
+          <a href="#" className="item">
+            <Settings className="icon" />
+            Setting
+          </a>
+          <a href="#" className="item">
+            <Help className="icon" />
+            Support
+          </a>
+          <a href="#" className="item">
+            <Logout className="icon" />
+            Logout
+          </a>
+        </Box>
       </div>
     </div>
   );
