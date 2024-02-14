@@ -45,11 +45,9 @@ function AddBook() {
     axios
       .post(`${process.env.REACT_APP_BASE_URL}/book`, updatedBookData)
       .then((response) => {
-        // Traiter la réponse
         console.log("Book added successfully");
       })
       .catch((error) => {
-        // Gérer les erreurs
         console.error("Error adding book:", error);
       });
   };
@@ -64,6 +62,7 @@ function AddBook() {
         height: "10vh",
         py: "1vh",
         px: "2vw",
+        border: "1px solid red",
       }}
     >
       <Typography sx={{ fontSize: "1.5rem", color: "#4481eb" }}>

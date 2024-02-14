@@ -9,10 +9,11 @@ function Filter() {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        my: "2vh",
+        my: "1vh",
         py: "2vh",
         px: "1vw",
-        bgcolor: "#",
+        bgcolor: "#000",
+        height: "10vh",
       }}
     >
       <Input placeholder="Author name" className="inputFiltre" />

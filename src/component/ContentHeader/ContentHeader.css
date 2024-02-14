@@ -1,6 +1,5 @@
 .content--header {
   display: flex;
-  flex: 1 !important;
   flex-direction: row;
   align-items: center;
   background-color: #fff;
@@ -9,6 +8,7 @@
   padding: 10px;
   border-radius: 20px 20px 0 0;
   box-shadow: 1px 1px 5px #acacac;
+  height: 12vh;
 }
 .search-box {
   width: 25vw;
