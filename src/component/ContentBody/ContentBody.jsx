@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
+import BookAds from "../BookAds/BookAds";
 
 function ContentBody() {
   return (
@@ -22,17 +23,7 @@ function ContentBody() {
           borderRadius: "10px",
         }}
       ></Box>
-      <Box
-        sx={{
-          width: "25%",
-          height: "96%",
-          marginBlock: "2vh",
-          marginInlineEnd: "1.5vw",
-          border: "1px solid red",
-          backgroundColor: "#fff",
-          borderRadius: "10px",
-        }}
-      ></Box>
+      <BookAds />
     </Box>
   );
 }
