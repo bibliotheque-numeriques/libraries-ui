@@ -3,13 +3,7 @@ import "./Login.css";
 import logimage from "../../ressource/log.svg";
 import LockIcon from "@mui/icons-material/Lock";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import {
-  Facebook,
-  Google,
-  GppMaybe,
-  LinkedIn,
-  Twitter,
-} from "@mui/icons-material";
+import { Google, GppMaybe } from "@mui/icons-material";
 import axios from "axios";
 import { useNavigate } from "react-router";
 function Login() {
