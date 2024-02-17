@@ -9,6 +9,13 @@
 }
 .dashboard--content {
   display: flex;
-  gap: 1.5rem;
+  flex-direction: column;
   justify-content: space-between;
+  height: 100vh;
+}
+.body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 88vh;
 }

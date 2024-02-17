@@ -1,3 +1,6 @@
+import React, { useState } from "react";
+import "./Sidebar.css";
+import { Box } from "@mui/material";
 import {
   AutoStories,
   Category,
@@ -8,10 +11,15 @@ import {
   Logout,
   Settings,
 } from "@mui/icons-material";
-import React from "react";
-import "./Sidebar.css";
-import { Box } from "@mui/material";
-function Sidebar() {
+
+function Sidebar({ onActionSelect }) {
+  const [selectedAction, setSelectedAction] = useState("discover");
+
+  const handleActionClick = (action) => {
+    setSelectedAction(action);
+    onActionSelect(action);
+  };
+
   return (
     <div className="menu">
       <div className="logo">
@@ -20,19 +28,35 @@ function Sidebar() {
       </div>
       <div className="menu--list">
         <Box sx={{ display: "flex", flexDirection: "column", gap: "2vh" }}>
-          <a href="#" className="item">
+          <a
+            href="#"
+            className={`item ${selectedAction === "discover" ? "active" : ""}`}
+            onClick={() => handleActionClick("discover")}
+          >
             <Home className="icon" />
             Discover
           </a>
-          <a href="#" className="item">
+          <a
+            href="#"
+            className={`item ${selectedAction === "category" ? "active" : ""}`}
+            onClick={() => handleActionClick("category")}
+          >
             <Category className="icon" />
-            Catégory
+            Category
           </a>
-          <a href="#" className="item">
+          <a
+            href="#"
+            className={`item ${selectedAction === "addbooks" ? "active" : ""}`}
+            onClick={() => handleActionClick("addbooks")}
+          >
             <Download className="icon" />
-            Download
+            Add book
           </a>
-          <a href="#" className="item">
+          <a
+            href="#"
+            className={`item ${selectedAction === "allBooks" ? "active" : ""}`}
+            onClick={() => handleActionClick("allBooks")}
+          >
             <LibraryBooks className="icon" />
             All book
           </a>
