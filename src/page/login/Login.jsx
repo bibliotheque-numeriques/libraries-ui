@@ -25,7 +25,7 @@ function Login() {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/login`,
-        loginInfo
+        loginInfo,
       );
 
       const { user } = response.data;

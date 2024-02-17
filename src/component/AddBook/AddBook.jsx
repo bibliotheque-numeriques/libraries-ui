@@ -1,147 +1,183 @@
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  FormControl,
-  Input,
-  Typography,
-} from "@mui/material";
-
-import React, { useState } from "react";
-import { Add } from "@mui/icons-material";
+import React, { useState, useEffect } from "react";
+import "./AddBook.css";
+import { Button } from "@mui/material";
 import axios from "axios";
 function AddBook() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [bookData, setBookData] = useState({
+  const [formData, setFormData] = useState({
     title: "",
-    page: 0,
-    langage: "",
+    page: "",
+    language: "",
     description: "",
-    parution_date: "",
-    link_image_book:
-      "https://fr.web.img5.acsta.net/pictures/23/05/04/12/49/2864731.jpg",
-    id_category: "",
-    id_author: "",
+    date: "",
+    file: "",
+    category: "",
+    author: "",
   });
+  const [categories, setCategories] = useState([]);
+  const [authors, setAuthors] = useState([]);
+  useEffect(() => {
+    // Récupérer les catégories depuis la base de données
+    // axios
+    //   .get(`${process.env.REACT_APP_BASE_URL}/category`)
+    //   .then((response) => {
+    //     setCategories(console.log(response.data));
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error fetching categories:", error);
+    //   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setBookData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleAddBook = () => {
-    console.log(bookData.parution_date);
-
-    const formattedDate = new Date(bookData.parution_date).toISOString();
-    const updatedBookData = { ...bookData, parution_date: formattedDate };
+    // Récupérer les auteurs depuis la base de données
     axios
-      .post(`${process.env.REACT_APP_BASE_URL}/book`, updatedBookData)
+      .get(`${process.env.REACT_APP_BASE_URL}/author`)
       .then((response) => {
-        console.log("Book added successfully");
+        setAuthors(response.data);
       })
       .catch((error) => {
-        console.error("Error adding book:", error);
+        console.error("Error fetching authors:", error);
       });
+  }, []);
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const date = new Date(formData.date);
+    const formattedDate = date.toISOString().split("T")[0];
+    const formDataToSend = {
+      ...formData,
+      page: parseInt(formData.page),
+      date: formattedDate,
+      category: parseInt(formData.category), // Convertir en entier
+      author: parseInt(formData.author), // Convertir en entier
+    };
+
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/book`,
+        formDataToSend,
+      );
+      // Réinitialisez le formulaire après l'envoi réussi
+      setFormData({
+        title: "",
+        page: "",
+        language: "",
+        description: "",
+        date: "",
+        file: "",
+        category: 0,
+        author: "",
+      });
+    } catch (err) {
+      console.error("Error adding book:", err);
+    }
+  };
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        height: "10vh",
-        py: "1vh",
-        px: "2vw",
-        border: "1px solid red",
-      }}
-    >
-      <Typography sx={{ fontSize: "1.5rem", color: "#4481eb" }}>
-        Book list
-      </Typography>
-      <Add
-        onClick={handleOpen}
-        sx={{
-          bgcolor: "#4481eb",
-          fontSize: "2rem",
-          padding: "5px",
-          borderRadius: "50%",
-        }}
-      />
-      <Dialog onClose={handleClose} open={open}>
-        <DialogTitle>Add a new book</DialogTitle>
-        <DialogContent
-          sx={{
-            width: "40vw",
-            height: "50vh",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "3vh",
-          }}
-        >
-          <FormControl
-            sx={{
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-            }}
+    <div className="addBookContainer">
+      <form className="addbookForm">
+        <div>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Book title"
+            value={formData.title}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <input
+            type="number"
+            name="page"
+            id="page"
+            placeholder="book number"
+            value={formData.page}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="language"
+            id="language"
+            placeholder="book language"
+            value={formData.language}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <textarea
+            name="description"
+            id="description"
+            placeholder="book description"
+          />
+        </div>
+        <div>
+          <input
+            type="date"
+            name="date"
+            id="date"
+            value={formData.date}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          {/* <label for="file">Choose a files</label> */}
+          <input
+            type="text"
+            name="image"
+            value={formData.image}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <select
+            name="category"
+            id="Categorie"
+            value={3}
+            onChange={handleChange}
           >
-            <Input
-              variant="solid"
-              name="title"
-              placeholder="Book Title"
-              onChange={handleChange}
-            />
-            <Input
-              type="number"
-              variant="solid"
-              placeholder="Page"
-              onChange={handleChange}
-            />
-            <Input
-              variant="solid"
-              placeholder="Language"
-              onChange={handleChange}
-            />
-            <Input
-              type="text"
-              variant="solid"
-              placeholder="description"
-              onChange={handleChange}
-            />
-            <Input
-              type="date"
-              variant="solid"
-              placeholder="parution date"
-              onChange={handleChange}
-            />
-            <Input
-              variant="solid"
-              placeholder="id category"
-              onChange={handleChange}
-            />
-            <Input
-              variant="solid"
-              placeholder="id author "
-              onChange={handleChange}
-            />
-          </FormControl>
-          <Button variant="contained" onClick={handleAddBook}>
-            Add
-          </Button>
-        </DialogContent>
-      </Dialog>
-    </Box>
+            <option value="">Category</option>
+            {/* {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))} */}
+          </select>
+        </div>
+        <div>
+          <select
+            name="author"
+            id="Author"
+            value={formData.author}
+            onChange={handleChange}
+          >
+            <option value="">Author</option>
+            {Object.values(authors).map((author) => (
+              <option
+                key={author.id_author}
+                value={author.id_author}
+                className="options"
+              >
+                {author.name + " " + author.first_name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </form>
+      <Button
+        variant="contained"
+        sx={{
+          marginTop: "2vh",
+          position: "absolute",
+          right: "8vw",
+          bottom: 0,
+        }}
+        onClick={handleSubmit}
+      >
+        Add Book
+      </Button>
+    </div>
   );
 }
 
