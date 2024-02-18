@@ -17,14 +17,14 @@ function AddBook() {
   const [authors, setAuthors] = useState([]);
   useEffect(() => {
     // Récupérer les catégories depuis la base de données
-    // axios
-    //   .get(`${process.env.REACT_APP_BASE_URL}/category`)
-    //   .then((response) => {
-    //     setCategories(console.log(response.data));
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching categories:", error);
-    //   });
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}/category`)
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching categories:", error);
+      });
 
     // Récupérer les auteurs depuis la base de données
     axios
@@ -55,7 +55,7 @@ function AddBook() {
     try {
       await axios.post(
         `${process.env.REACT_APP_BASE_URL}/book`,
-        formDataToSend,
+        formDataToSend
       );
       // Réinitialisez le formulaire après l'envoi réussi
       setFormData({
@@ -65,7 +65,7 @@ function AddBook() {
         description: "",
         date: "",
         file: "",
-        category: 0,
+        category: "",
         author: "",
       });
     } catch (err) {
@@ -138,11 +138,11 @@ function AddBook() {
             onChange={handleChange}
           >
             <option value="">Category</option>
-            {/* {categories.map((category) => (
-              <option key={category.id} value={category.id}>
+            {Object.values(categories).map((category) => (
+              <option key={category.id_category} value={3}>
                 {category.name}
               </option>
-            ))} */}
+            ))}
           </select>
         </div>
         <div>
