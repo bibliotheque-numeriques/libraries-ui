@@ -1,0 +1,38 @@
+.discover-content {
+  width: 100%;
+  height: 76vh;
+  padding: 2vh 1vw;
+}
+.banner {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 1px 1px 10px #d9d9d9;
+  border-radius: 10px;
+}
+.banner-text,
+.banner-img {
+  flex-basis: 50%;
+  object-fit: cover;
+  padding: 2vh 0;
+}
+.banner-img img {
+  width: 100%;
+  height: 100%;
+}
+.banner-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 2vh;
+}
+.banner-text h4 {
+  font-size: 1.2rem;
+}
+.banner-text p {
+  font-size: 0.8rem;
+  width: 70%;
+}
