@@ -17,7 +17,6 @@ function AddBook() {
   });
   const [categories, setCategories] = useState([]);
   const [authors, setAuthors] = useState([]);
-
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/category`)
