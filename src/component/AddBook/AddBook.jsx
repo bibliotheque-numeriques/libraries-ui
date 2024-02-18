@@ -2,31 +2,32 @@ import React, { useState, useEffect } from "react";
 import "./AddBook.css";
 import { Button } from "@mui/material";
 import axios from "axios";
+
 function AddBook() {
   const [formData, setFormData] = useState({
     title: "",
     page: "",
-    language: "",
+    langage: "",
     description: "",
-    date: "",
-    file: "",
-    category: "",
-    author: "",
+    parution_date: "",
+    link_image_book:
+      "https://cdn.pixabay.com/photo/2023/12/14/05/04/ai-generated-8448187_1280.jpg",
+    id_category: 3,
+    id_author: 1,
   });
   const [categories, setCategories] = useState([]);
   const [authors, setAuthors] = useState([]);
-  useEffect(() => {
-    // Récupérer les catégories depuis la base de données
-    // axios
-    //   .get(`${process.env.REACT_APP_BASE_URL}/category`)
-    //   .then((response) => {
-    //     setCategories(console.log(response.data));
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching categories:", error);
-    //   });
 
-    // Récupérer les auteurs depuis la base de données
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}/category`)
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching categories:", error);
+      });
+
     axios
       .get(`${process.env.REACT_APP_BASE_URL}/author`)
       .then((response) => {
@@ -36,45 +37,47 @@ function AddBook() {
         console.error("Error fetching authors:", error);
       });
   }, []);
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const date = new Date(formData.date);
-    const formattedDate = date.toISOString().split("T")[0];
+    const parution_date = new Date(formData.parution_date);
+    const formattedDate = parution_date.toISOString().split("T")[0];
     const formDataToSend = {
       ...formData,
       page: parseInt(formData.page),
       date: formattedDate,
-      category: parseInt(formData.category), // Convertir en entier
-      author: parseInt(formData.author), // Convertir en entier
+      category: parseInt(formData.id_category),
+      author: parseInt(formData.id_author),
     };
 
     try {
       await axios.post(
         `${process.env.REACT_APP_BASE_URL}/book`,
-        formDataToSend,
+        formDataToSend
       );
-      // Réinitialisez le formulaire après l'envoi réussi
       setFormData({
         title: "",
         page: "",
-        language: "",
+        langage: "",
         description: "",
-        date: "",
-        file: "",
-        category: 0,
-        author: "",
+        parution_date: "",
+        link_image_book: "",
+        id_category: "",
+        id_author: "",
       });
     } catch (err) {
       console.error("Error adding book:", err);
     }
   };
+
   return (
     <div className="addBookContainer">
-      <form className="addbookForm">
+      <form className="addbookForm" onSubmit={handleSubmit}>
         <div>
           <input
             type="text"
@@ -98,10 +101,10 @@ function AddBook() {
         <div>
           <input
             type="text"
-            name="language"
-            id="language"
+            name="langage"
+            id="langage"
             placeholder="book language"
-            value={formData.language}
+            value={formData.langage}
             onChange={handleChange}
           />
         </div>
@@ -110,23 +113,24 @@ function AddBook() {
             name="description"
             id="description"
             placeholder="book description"
-          />
-        </div>
-        <div>
-          <input
-            type="date"
-            name="date"
-            id="date"
-            value={formData.date}
+            value={formData.description}
             onChange={handleChange}
           />
         </div>
         <div>
-          {/* <label for="file">Choose a files</label> */}
+          <input
+            type="datetime-local"
+            name="parution_date"
+            id="parution_date"
+            value={formData.parution_date}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
           <input
             type="text"
             name="image"
-            value={formData.image}
+            value={formData.link_image_book}
             onChange={handleChange}
           />
         </div>
@@ -134,22 +138,17 @@ function AddBook() {
           <select
             name="category"
             id="Categorie"
-            value={3}
+            value={formData.id_category}
             onChange={handleChange}
           >
             <option value="">Category</option>
-            {/* {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))} */}
           </select>
         </div>
         <div>
           <select
             name="author"
             id="Author"
-            value={formData.author}
+            value={formData.id_author}
             onChange={handleChange}
           >
             <option value="">Author</option>
@@ -159,24 +158,24 @@ function AddBook() {
                 value={author.id_author}
                 className="options"
               >
-                {author.name + " " + author.first_name}
+                {author.name}
               </option>
             ))}
           </select>
         </div>
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{
+            marginTop: "2vh",
+            position: "absolute",
+            right: "8vw",
+            bottom: 0,
+          }}
+        >
+          Add Book
+        </Button>
       </form>
-      <Button
-        variant="contained"
-        sx={{
-          marginTop: "2vh",
-          position: "absolute",
-          right: "8vw",
-          bottom: 0,
-        }}
-        onClick={handleSubmit}
-      >
-        Add Book
-      </Button>
     </div>
   );
 }
